@@ -336,6 +336,7 @@
 "Assets/Player/Scripts/PlayerManager.cs"
 "Assets/Player/Scripts/ResetBool.cs"
 "Assets/Player/Scripts/ResetIsJumping.cs"
+"Assets/Player/Scripts/ResetIsRolling.cs"
 -langversion:8.0
 
 /deterministic

@@ -10,7 +10,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     Vector3 moveDirection;
     Transform cameraObject;
-    Rigidbody playerRigidBody;
+    public Rigidbody playerRigidBody;
 
     [Header("Falling")]
     public float inAirTimer;
@@ -20,19 +20,24 @@ public class PlayerLocomotion : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Movement Flags")]
-    public bool isSprinting;
+    public bool isRunning;
     public bool isGrounded;
     public bool isJumping;
+    public bool isRolling;
 
     [Header("Movement Speeds")]
-    public float walkingSpeed = 1.5f;
-    public float runningSpeed = 5;
-    public float sprintingSpeed = 7;
+    public float walkingBSpeed = 1.5f;
+    public float walkingTSpeed = 3;
+    public float walkingSpeed = 3;
+    public float runningSpeed = 7;
     public float rotationSpeed = 15;
 
     [Header("Jump Speeds")]
-    public float jumpHeight = 3;
-    public float gravityIntensity = -15;
+    public float jumpHeight = 1;
+    public float gravityIntensity = -9.81f;
+
+    [Header("Roll Speeds")]
+    public float rollRange = 30;
 
     private void Awake()
     {
@@ -55,7 +60,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (isJumping)
+        if (isJumping || isRolling)
             return;
 
         moveDirection = cameraObject.forward * inputManager.verticalInput;
@@ -63,20 +68,21 @@ public class PlayerLocomotion : MonoBehaviour
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        if(isSprinting)
+        if(isRunning)
         {
-            moveDirection *= sprintingSpeed;
+            moveDirection *= runningSpeed;
+        }
+        else if(inputManager.verticalInput <= -1)
+        {
+            moveDirection *= walkingBSpeed;
+        }
+        else if(inputManager.horizontalInput != 0)
+        {
+            moveDirection *= walkingTSpeed;
         }
         else
         {
-            if (inputManager.moveAmount >= 0.5f)
-            {
-                moveDirection *= runningSpeed;
-            }
-            else
-            {
-                moveDirection *= walkingSpeed;
-            }
+            moveDirection *= walkingSpeed;
         }
 
         Vector3 movementVelocity = moveDirection;
@@ -85,13 +91,20 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (isJumping)
+        if (isJumping || isRolling)
             return;
 
         Vector3 targetDirection = Vector3.zero;
 
-        targetDirection = cameraObject.forward * inputManager.verticalInput;
-        targetDirection += cameraObject.right * inputManager.horizontalInput;
+        targetDirection = cameraObject.forward * Mathf.Abs(inputManager.verticalInput);
+        if(inputManager.horizontalInput == 1)
+        {
+            targetDirection += cameraObject.forward * inputManager.horizontalInput;
+        }
+        else if(inputManager.horizontalInput == -1)
+        {
+            targetDirection -= cameraObject.forward * inputManager.horizontalInput;
+        }
         targetDirection.Normalize();
         targetDirection.y = 0;
 
@@ -99,9 +112,8 @@ public class PlayerLocomotion : MonoBehaviour
             targetDirection = transform.forward;
 
         Quaternion targerRotation = Quaternion.LookRotation(targetDirection);
-        Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targerRotation, rotationSpeed * Time.deltaTime);
 
-        transform.rotation = playerRotation;
+        transform.rotation = targerRotation;
     }
 
     private void HandleFallingAndLanding()
@@ -110,7 +122,7 @@ public class PlayerLocomotion : MonoBehaviour
         Vector3 rayCastOrigin = transform.position;
         rayCastOrigin.y += rayCastHeightOffSet;
 
-        if(!isGrounded && !isJumping)
+        if(!isGrounded && !isJumping && !isRolling)
         {
             if(!playerManager.isInteracting)
             {
@@ -140,15 +152,36 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleJumping()
     {
-        if(isGrounded)
+        if(isGrounded && !isRolling)
         {
             animatorManager.animator.SetBool("isJumping", true);
-            animatorManager.PlayTargetAnimation("Jumpimg", false);
+            animatorManager.PlayTargetAnimation("Jumping", false);
 
             float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
             Vector3 playerVelocity = moveDirection;
             playerVelocity.y = jumpingVelocity;
             playerRigidBody.velocity = playerVelocity;
+        }
+    }
+
+    public void HandleRolling()
+    {
+        if(isGrounded && !isRolling)
+        {
+                if(inputManager.horizontalInput != 0 || inputManager.verticalInput != 0)
+                {
+                    moveDirection = cameraObject.forward * inputManager.verticalInput;
+                    moveDirection += cameraObject.right * inputManager.horizontalInput;
+                    moveDirection.Normalize();
+                    moveDirection.y = 0;
+
+                    animatorManager.animator.SetBool("isRolling", true);
+                    animatorManager.PlayTargetAnimation("Rolling", false);
+                    
+                    
+                    Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
+                    transform.rotation = rollRotation;
+                }
         }
     }
 }

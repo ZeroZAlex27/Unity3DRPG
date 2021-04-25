@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         inputManager = GetComponent<InputManager>();
         cameraManager = FindObjectOfType<CameraManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour
 
         isInteracting = animator.GetBool("isInteracting");
         playerLocomotion.isJumping = animator.GetBool("isJumping");
+        playerLocomotion.isRolling = animator.GetBool("isRolling");
         animator.SetBool("isGrounded", playerLocomotion.isGrounded);
     }
 }

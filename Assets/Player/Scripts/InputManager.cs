@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
 
     public bool runInput;
     public bool jumpInput;
+    public bool rollInput;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class InputManager : MonoBehaviour
             playerControls.Player.Run.performed += i => runInput = true;
             playerControls.Player.Run.canceled += i => runInput = false;
             playerControls.Player.Jump.performed += i => jumpInput = true;
+            playerControls.Player.Roll.performed += i => rollInput = true;
         }
 
         playerControls.Enable();
@@ -54,6 +56,7 @@ public class InputManager : MonoBehaviour
         HandleMovementInput();
         HandleSprintingInput();
         HandleJumpingInput();
+        HandleRollingInput();
     }
 
     private void HandleMovementInput()
@@ -64,19 +67,18 @@ public class InputManager : MonoBehaviour
         cameraInputY = cameraInput.y;
         cameraInputX = cameraInput.x;
 
-        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
-        animatorManager.UpdateAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);
+        animatorManager.UpdateAnimatorValues(horizontalInput, verticalInput, playerLocomotion.isRunning);
     }
 
     private void HandleSprintingInput()
     {
-        if (runInput && moveAmount > 0.5f)
+        if (runInput && verticalInput > 0)
         {
-            playerLocomotion.isSprinting = true;
+            playerLocomotion.isRunning = true;
         }
         else
         {
-            playerLocomotion.isSprinting = false;
+            playerLocomotion.isRunning = false;
         }
     }
 
@@ -86,6 +88,15 @@ public class InputManager : MonoBehaviour
         {
             jumpInput = false;
             playerLocomotion.HandleJumping();
+        }
+    }
+
+    private void HandleRollingInput()
+    {
+        if(rollInput)
+        {
+            rollInput = false;
+            playerLocomotion.HandleRolling();
         }
     }
 }

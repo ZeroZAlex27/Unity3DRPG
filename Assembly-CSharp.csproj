@@ -60,6 +60,7 @@
     <Compile Include="Assets\Player\Scripts\ResetBool.cs" />
     <Compile Include="Assets\Player\Scripts\ResetIsJumping.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerLocomotion.cs" />
+    <Compile Include="Assets\Player\Scripts\ResetIsRolling.cs" />
     <Compile Include="Assets\Player\Scripts\AnimatorManager.cs" />
   </ItemGroup>
   <ItemGroup>
