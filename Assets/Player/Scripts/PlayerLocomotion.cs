@@ -24,6 +24,7 @@ public class PlayerLocomotion : MonoBehaviour
     public bool isGrounded;
     public bool isJumping;
     public bool isRolling;
+    public bool startRolling;
 
     [Header("Movement Speeds")]
     public float walkingBSpeed = 1.5f;
@@ -31,13 +32,12 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingSpeed = 3;
     public float runningSpeed = 7;
     public float rotationSpeed = 15;
+    public float rollSpeed = 5;
 
     [Header("Jump Speeds")]
     public float jumpHeight = 1;
     public float gravityIntensity = -9.81f;
-
-    [Header("Roll Speeds")]
-    public float rollRange = 30;
+    
 
     private void Awake()
     {
@@ -56,6 +56,7 @@ public class PlayerLocomotion : MonoBehaviour
             return;
         HandleMovement();
         HandleRotation();
+        HandleImpulse();
     }
 
     private void HandleMovement()
@@ -68,15 +69,15 @@ public class PlayerLocomotion : MonoBehaviour
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        if(isRunning)
+        if(isRunning && isGrounded)
         {
             moveDirection *= runningSpeed;
         }
-        else if(inputManager.verticalInput <= -1)
+        else if(inputManager.verticalInput <= -1 && isGrounded)
         {
             moveDirection *= walkingBSpeed;
         }
-        else if(inputManager.horizontalInput != 0)
+        else if(inputManager.horizontalInput != 0 && isGrounded)
         {
             moveDirection *= walkingTSpeed;
         }
@@ -97,13 +98,21 @@ public class PlayerLocomotion : MonoBehaviour
         Vector3 targetDirection = Vector3.zero;
 
         targetDirection = cameraObject.forward * Mathf.Abs(inputManager.verticalInput);
-        if(inputManager.horizontalInput == 1)
+        if(inputManager.horizontalInput == 1 && inputManager.verticalInput == 0)
         {
             targetDirection += cameraObject.forward * inputManager.horizontalInput;
         }
-        else if(inputManager.horizontalInput == -1)
+        else if(inputManager.horizontalInput == -1 && inputManager.verticalInput == 0)
         {
             targetDirection -= cameraObject.forward * inputManager.horizontalInput;
+        }
+        else if(inputManager.verticalInput == 1 && inputManager.horizontalInput != 0)
+        {
+            targetDirection += cameraObject.right * inputManager.horizontalInput;
+        }
+        else if(inputManager.verticalInput == -1 && inputManager.horizontalInput != 0)
+        {
+            targetDirection -= cameraObject.right * inputManager.horizontalInput;
         }
         targetDirection.Normalize();
         targetDirection.y = 0;
@@ -114,6 +123,28 @@ public class PlayerLocomotion : MonoBehaviour
         Quaternion targerRotation = Quaternion.LookRotation(targetDirection);
 
         transform.rotation = targerRotation;
+    }
+
+    private void HandleImpulse()
+    {
+        if (!isRolling)
+        {
+            startRolling = false;
+            return;
+        }
+
+        if (!startRolling)
+        {
+            startRolling = true;
+            moveDirection = cameraObject.forward * inputManager.verticalInput;
+            moveDirection += cameraObject.right * inputManager.horizontalInput;
+            moveDirection.Normalize();
+            moveDirection.y = 0;
+            moveDirection *= rollSpeed;
+        }
+
+        Vector3 movementVelocity = moveDirection;
+        playerRigidBody.velocity = movementVelocity;
     }
 
     private void HandleFallingAndLanding()
@@ -170,15 +201,9 @@ public class PlayerLocomotion : MonoBehaviour
         {
                 if(inputManager.horizontalInput != 0 || inputManager.verticalInput != 0)
                 {
-                    moveDirection = cameraObject.forward * inputManager.verticalInput;
-                    moveDirection += cameraObject.right * inputManager.horizontalInput;
-                    moveDirection.Normalize();
-                    moveDirection.y = 0;
-
                     animatorManager.animator.SetBool("isRolling", true);
                     animatorManager.PlayTargetAnimation("Rolling", false);
-                    
-                    
+
                     Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                     transform.rotation = rollRotation;
                 }

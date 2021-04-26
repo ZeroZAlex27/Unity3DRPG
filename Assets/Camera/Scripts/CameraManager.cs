@@ -16,7 +16,7 @@ public class CameraManager : MonoBehaviour
 
     public float cameraCollisionOffSet = 0.2f; // How much the camera will jump of objects it's colliding with
     public float minCollisionOffSet = 0.2f;
-    public float cameraCollisionRadius = 2;
+    public float cameraCollisionRadius = 0.2f;
     public float cameraFollowSpeed = 0.2f;
     public float cameraLookSpeed = 2;
     public float cameraPivotSpeed = 2;

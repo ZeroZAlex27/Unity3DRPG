@@ -21,7 +21,6 @@ public class AnimatorManager : MonoBehaviour
 
     public void PlayTargetAnimation(string targetAnimation, bool isInteracting)
     {
-        animator.applyRootMotion = true;
         animator.SetBool("isInteracting", isInteracting);
         animator.CrossFade(targetAnimation, 0.2f);
     }
@@ -35,17 +34,5 @@ public class AnimatorManager : MonoBehaviour
 
         animator.SetFloat(horizontal, horizontalMovement, 0.1f, Time.deltaTime);
         animator.SetFloat(vertical, verticalMovement, 0.1f, Time.deltaTime);
-    }
-
-    private void OnAnimatorMove()
-    {
-        if (playerLocomotion.isRolling == false)
-            return;
-
-        playerLocomotion.playerRigidBody.drag = 0;
-        Vector3 deltaPosition = animator.deltaPosition;
-        deltaPosition.y = 0;
-        Vector3 velocity = deltaPosition / Time.deltaTime;
-        playerLocomotion.playerRigidBody.velocity = velocity;
     }
 }
