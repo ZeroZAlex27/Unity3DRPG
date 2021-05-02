@@ -53,12 +53,18 @@
     <UnityVersion>2021.1.1f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Player\Tools\WeaponSlotManager.cs" />
     <Compile Include="Assets\Camera\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Player\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Player\Tools\Item.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Player\Scripts\ResetBool.cs" />
+    <Compile Include="Assets\Player\Scripts\PlayerAttacker.cs" />
+    <Compile Include="Assets\Player\Tools\WeaponHolderSlot.cs" />
     <Compile Include="Assets\Player\Scripts\ResetIsJumping.cs" />
+    <Compile Include="Assets\Player\Tools\WeaponItem.cs" />
+    <Compile Include="Assets\Player\Tools\PlayerInventory.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerLocomotion.cs" />
     <Compile Include="Assets\Player\Scripts\ResetIsRolling.cs" />
     <Compile Include="Assets\Player\Scripts\AnimatorManager.cs" />

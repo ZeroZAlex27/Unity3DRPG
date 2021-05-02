@@ -331,12 +331,18 @@
 "Assets/Camera/Scripts/CameraManager.cs"
 "Assets/Player/Scripts/AnimatorManager.cs"
 "Assets/Player/Scripts/InputManager.cs"
+"Assets/Player/Scripts/PlayerAttacker.cs"
 "Assets/Player/Scripts/PlayerControls.cs"
 "Assets/Player/Scripts/PlayerLocomotion.cs"
 "Assets/Player/Scripts/PlayerManager.cs"
 "Assets/Player/Scripts/ResetBool.cs"
 "Assets/Player/Scripts/ResetIsJumping.cs"
 "Assets/Player/Scripts/ResetIsRolling.cs"
+"Assets/Player/Tools/Item.cs"
+"Assets/Player/Tools/PlayerInventory.cs"
+"Assets/Player/Tools/WeaponHolderSlot.cs"
+"Assets/Player/Tools/WeaponItem.cs"
+"Assets/Player/Tools/WeaponSlotManager.cs"
 -langversion:8.0
 
 /deterministic

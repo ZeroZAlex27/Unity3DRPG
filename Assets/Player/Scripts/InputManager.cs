@@ -7,6 +7,8 @@ public class InputManager : MonoBehaviour
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
+    PlayerAttacker playerAttacker;
+    PlayerInventory playerInventory;
 
     public Vector2 movementInput;
     public Vector2 cameraInput;
@@ -22,10 +24,15 @@ public class InputManager : MonoBehaviour
     public bool jumpInput;
     public bool rollInput;
 
+    public bool lightAttackInput;
+    public bool heavyAttackInput;
+
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        playerAttacker = GetComponent<PlayerAttacker>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     private void OnEnable()
@@ -41,6 +48,9 @@ public class InputManager : MonoBehaviour
             playerControls.Player.Run.canceled += i => runInput = false;
             playerControls.Player.Jump.performed += i => jumpInput = true;
             playerControls.Player.Roll.performed += i => rollInput = true;
+
+            playerControls.Player.LightAttack.performed += i => lightAttackInput = true;
+            playerControls.Player.HeavyAttack.performed += i => heavyAttackInput = true;
         }
 
         playerControls.Enable();
@@ -57,6 +67,7 @@ public class InputManager : MonoBehaviour
         HandleSprintingInput();
         HandleJumpingInput();
         HandleRollingInput();
+        HandleAttackInput();
     }
 
     private void HandleMovementInput()
@@ -97,6 +108,21 @@ public class InputManager : MonoBehaviour
         {
             rollInput = false;
             playerLocomotion.HandleRolling();
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        if (lightAttackInput)
+        {
+            lightAttackInput = false;
+            playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+        }
+
+        if (heavyAttackInput)
+        {
+            heavyAttackInput = false;
+            playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
         }
     }
 }

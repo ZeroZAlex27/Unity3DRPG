@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Attack",
+                    "name": "Light Attack",
                     "type": "Button",
                     "id": "0a59573e-17ff-485c-9fcc-2ab5fe54c16c",
                     "expectedControlType": "Button",
@@ -49,6 +49,14 @@
                     "name": "Roll",
                     "type": "Button",
                     "id": "a8ea2940-6d36-46c9-a82d-f7daab27a6d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Heavy Attack",
+                    "type": "Button",
+                    "id": "7a463e0b-8524-4518-9c10-19568945c495",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -139,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Light Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -162,6 +170,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "738248f3-b57a-48eb-a1ad-58714005ac6d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Heavy Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
