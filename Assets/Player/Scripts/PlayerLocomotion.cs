@@ -20,6 +20,7 @@ public class PlayerLocomotion : MonoBehaviour
     public LayerMask groundLayer;
 
     [Header("Movement Flags")]
+    public bool isDead;
     public bool isRunning;
     public bool isGrounded;
     public bool isJumping;
@@ -61,7 +62,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (isJumping || isRolling)
+        if (isJumping || isRolling || isDead)
             return;
 
         moveDirection = cameraObject.forward * inputManager.verticalInput;
@@ -183,6 +184,8 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleJumping()
     {
+        if (isDead)
+            return;
         if(isGrounded && !isRolling)
         {
             animatorManager.animator.SetBool("isJumping", true);
@@ -197,6 +200,8 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleRolling()
     {
+        if (isDead)
+            return;
         if(isGrounded && !isRolling)
         {
                 if(inputManager.horizontalInput != 0 || inputManager.verticalInput != 0)
