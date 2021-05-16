@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
         isInteracting = animator.GetBool("isInteracting");
         playerLocomotion.isJumping = animator.GetBool("isJumping");
         playerLocomotion.isRolling = animator.GetBool("isRolling");
+        playerLocomotion.canDoCombo = animator.GetBool("canDoCombo");
         animator.SetBool("isGrounded", playerLocomotion.isGrounded);
     }
 }

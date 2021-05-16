@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
+    PlayerManager playerManager;
     PlayerAttacker playerAttacker;
     PlayerInventory playerInventory;
 
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
     public bool runInput;
     public bool jumpInput;
     public bool rollInput;
+    public bool comboInput;
 
     public bool lightAttackInput;
     public bool heavyAttackInput;
@@ -30,6 +32,7 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
+        playerManager = GetComponent<PlayerManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerAttacker = GetComponent<PlayerAttacker>();
         playerInventory = GetComponent<PlayerInventory>();
@@ -113,16 +116,42 @@ public class InputManager : MonoBehaviour
 
     private void HandleAttackInput()
     {
+        if (!playerManager.isInteracting)
+        {
+            playerAttacker.lastAttack = null;
+        }
         if (lightAttackInput)
         {
             lightAttackInput = false;
-            playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            if (playerLocomotion.canDoCombo && playerAttacker.lastAttack == playerInventory.rightWeapon.OH_Light_Attack_1)
+            {
+                comboInput = true;
+                playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+                comboInput = false;
+            }
+            else
+            {
+                if (playerManager.isInteracting && playerAttacker.lastAttack == playerInventory.rightWeapon.OH_Light_Attack_1)
+                    return;
+                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            }
         }
 
         if (heavyAttackInput)
         {
             heavyAttackInput = false;
-            playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
+            if (playerLocomotion.canDoCombo && playerAttacker.lastAttack == playerInventory.leftWeapon.OH_Heavy_Attack_1)
+            {
+                comboInput = true;
+                playerAttacker.HandleWeaponCombo(playerInventory.leftWeapon);
+                comboInput = false;
+            }
+            else
+            {
+                if (playerManager.isInteracting && playerAttacker.lastAttack == playerInventory.leftWeapon.OH_Heavy_Attack_1)
+                    return;
+                playerAttacker.HandleHeavyAttack(playerInventory.leftWeapon);
+            }
         }
     }
 }

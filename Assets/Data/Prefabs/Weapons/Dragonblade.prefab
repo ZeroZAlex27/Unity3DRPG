@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 8261260509768483813}
   - component: {fileID: 8269693151405432281}
   - component: {fileID: 8279560161818052907}
-  - component: {fileID: 8237237714535669013}
   - component: {fileID: 5327150150169833263}
   - component: {fileID: 1061417443150562043}
   m_Layer: 0
@@ -147,20 +146,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8237237714535669013
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8264482030334530049}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: cf12dc9cfbd39b14aaeae7c519275979, type: 3}
 --- !u!65 &5327150150169833263
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,8 +157,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.07945195, y: 1.253537, z: 0.07685506}
-  m_Center: {x: 0.0043296046, y: 1.0168782, z: -0.0017565098}
+  m_Size: {x: 0.07945195, y: 1.6436832, z: 0.07685506}
+  m_Center: {x: 0.0043306253, y: 0.8218155, z: -0.0017579421}
 --- !u!114 &1061417443150562043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,3 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c0d3ca77e8af34b9714cf56b44e15a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeaponDamage: 25

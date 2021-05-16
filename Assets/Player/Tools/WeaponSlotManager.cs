@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponSlotManager : MonoBehaviour
 {
+    Animator animator;
+
     WeaponHolderSlot leftHandSlot;
     WeaponHolderSlot rightHandSlot;
 
@@ -12,6 +14,8 @@ public class WeaponSlotManager : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponentInChildren<Animator>();
+
         WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
         foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
         {
@@ -38,6 +42,16 @@ public class WeaponSlotManager : MonoBehaviour
             rightHandSlot.LoadWeaponModel(weaponItem);
             LoadRightWeaponDamageCollider();
         }
+    }
+
+    public void EnableCombo()
+    {
+        animator.SetBool("canDoCombo", true);
+    }
+
+    public void DisableCombo()
+    {
+        animator.SetBool("canDoCombo", false);
     }
 
     #region Handle Weapon's Damage Collider

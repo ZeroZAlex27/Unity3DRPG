@@ -26,6 +26,7 @@ public class PlayerLocomotion : MonoBehaviour
     public bool isJumping;
     public bool isRolling;
     public bool startRolling;
+    public bool canDoCombo;
 
     [Header("Movement Speeds")]
     public float walkingBSpeed = 1.5f;

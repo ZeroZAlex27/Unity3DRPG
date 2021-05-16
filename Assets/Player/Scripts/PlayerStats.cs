@@ -12,11 +12,15 @@ public class PlayerStats : MonoBehaviour
 
     AnimatorManager animatorManager;
     PlayerLocomotion playerLocomotion;
+    CapsuleCollider collider;
+    Rigidbody rigidbody;
 
     private void Awake()
     {
         animatorManager = GetComponentInChildren<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        collider = GetComponent<CapsuleCollider>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -35,6 +39,9 @@ public class PlayerStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (playerLocomotion.isDead)
+            return;
+
         currentHealth -= damage;
 
         healthBar.SetCurrentHealth(currentHealth);
@@ -46,6 +53,10 @@ public class PlayerStats : MonoBehaviour
             currentHealth = 0;
             playerLocomotion.isDead = true;
             animatorManager.PlayTargetAnimation("Death", true);
+            collider.direction = 2;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            collider.radius = 0.1f;
         }
     }
 }

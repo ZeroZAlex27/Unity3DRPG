@@ -8,15 +8,23 @@ public class EnemyStats : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
+    bool isDead;
+
     Animator animator;
+    CapsuleCollider collider;
+    Rigidbody rigidbody;
+    
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        collider = GetComponent<CapsuleCollider>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     void Start()
     {
+        isDead = false;
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
     }
@@ -29,6 +37,9 @@ public class EnemyStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDead)
+            return;
+
         currentHealth -= damage;
 
         animator.Play("Take Damage");
@@ -36,7 +47,12 @@ public class EnemyStats : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            isDead = true;
             animator.Play("Death");
+            collider.direction = 2;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            collider.radius = 0.1f;
         }
     }
 }
