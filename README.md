@@ -1,5 +1,5 @@
 # Unity3DRPG
-![](gc1.png)
+![](gc1.PNG)
 Assylkhan
 https://github.com/RoseImai/RPG_Unity_Assylkhan.git
 
