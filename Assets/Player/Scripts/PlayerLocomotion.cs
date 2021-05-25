@@ -9,6 +9,7 @@ public class PlayerLocomotion : MonoBehaviour
     InputManager inputManager;
 
     Vector3 moveDirection;
+    Transform myTransform;
     Transform cameraObject;
     public Rigidbody playerRigidBody;
 
@@ -26,6 +27,7 @@ public class PlayerLocomotion : MonoBehaviour
     public bool isJumping;
     public bool isRolling;
     public bool startRolling;
+    public bool canRotate;
     public bool canDoCombo;
 
     [Header("Movement Speeds")]
@@ -33,7 +35,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingTSpeed = 3;
     public float walkingSpeed = 3;
     public float runningSpeed = 7;
-    public float rotationSpeed = 15;
+    public float rotationSpeed = 10;
     public float rollSpeed = 5;
 
     [Header("Jump Speeds")]
@@ -48,11 +50,13 @@ public class PlayerLocomotion : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         playerRigidBody = GetComponent<Rigidbody>();
         cameraObject = Camera.main.transform;
+        myTransform = transform;
     }
 
     public void HandleAllMovement()
     {
         HandleFallingAndLanding();
+        InteractionRotation();
 
         if (playerManager.isInteracting)
             return;
@@ -100,19 +104,19 @@ public class PlayerLocomotion : MonoBehaviour
         Vector3 targetDirection = Vector3.zero;
 
         targetDirection = cameraObject.forward * Mathf.Abs(inputManager.verticalInput);
-        if(inputManager.horizontalInput == 1 && inputManager.verticalInput == 0)
+        if (inputManager.horizontalInput == 1 && inputManager.verticalInput == 0)
         {
             targetDirection += cameraObject.forward * inputManager.horizontalInput;
         }
-        else if(inputManager.horizontalInput == -1 && inputManager.verticalInput == 0)
+        else if (inputManager.horizontalInput == -1 && inputManager.verticalInput == 0)
         {
             targetDirection -= cameraObject.forward * inputManager.horizontalInput;
         }
-        else if(inputManager.verticalInput == 1 && inputManager.horizontalInput != 0)
+        else if (inputManager.verticalInput == 1 && inputManager.horizontalInput != 0)
         {
             targetDirection += cameraObject.right * inputManager.horizontalInput;
         }
-        else if(inputManager.verticalInput == -1 && inputManager.horizontalInput != 0)
+        else if (inputManager.verticalInput == -1 && inputManager.horizontalInput != 0)
         {
             targetDirection -= cameraObject.right * inputManager.horizontalInput;
         }
@@ -125,6 +129,34 @@ public class PlayerLocomotion : MonoBehaviour
         Quaternion targerRotation = Quaternion.LookRotation(targetDirection);
 
         transform.rotation = targerRotation;
+    }
+
+    private void InteractionRotation()
+    {
+        if (isJumping || isRolling || isDead)
+            return;
+
+        if (canRotate)
+        {
+            Vector3 targetDir = Vector3.zero;
+            float moveOverride = inputManager.moveAmount;
+
+            targetDir = cameraObject.forward * inputManager.verticalInput;
+            targetDir += cameraObject.right * inputManager.horizontalInput;
+
+            targetDir.Normalize();
+            targetDir.y = 0;
+
+            if (targetDir == Vector3.zero)
+                targetDir = myTransform.forward;
+
+            float rs = rotationSpeed;
+
+            Quaternion tr = Quaternion.LookRotation(targetDir);
+            Quaternion targetRotation = Quaternion.Slerp(myTransform.rotation, tr, rs * Time.deltaTime);
+
+            myTransform.rotation = targetRotation;
+        }
     }
 
     private void HandleImpulse()

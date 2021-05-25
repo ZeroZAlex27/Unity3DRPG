@@ -12,15 +12,15 @@ public class PlayerStats : MonoBehaviour
 
     AnimatorManager animatorManager;
     PlayerLocomotion playerLocomotion;
-    CapsuleCollider collider;
-    Rigidbody rigidbody;
+    CapsuleCollider playerCapsuleCollider;
+    Rigidbody playerRigidBody;
 
     private void Awake()
     {
         animatorManager = GetComponentInChildren<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
-        collider = GetComponent<CapsuleCollider>();
-        rigidbody = GetComponent<Rigidbody>();
+        playerCapsuleCollider = GetComponent<CapsuleCollider>();
+        playerRigidBody = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -53,10 +53,10 @@ public class PlayerStats : MonoBehaviour
             currentHealth = 0;
             playerLocomotion.isDead = true;
             animatorManager.PlayTargetAnimation("Death", true);
-            collider.direction = 2;
-            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
-            collider.radius = 0.1f;
+            playerCapsuleCollider.direction = 2;
+            playerRigidBody.constraints = RigidbodyConstraints.FreezeAll;
+            playerRigidBody.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            playerCapsuleCollider.radius = 0.1f;
         }
     }
 }

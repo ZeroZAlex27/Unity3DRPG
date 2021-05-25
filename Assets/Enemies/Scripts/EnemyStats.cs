@@ -11,15 +11,15 @@ public class EnemyStats : MonoBehaviour
     bool isDead;
 
     Animator animator;
-    CapsuleCollider collider;
-    Rigidbody rigidbody;
+    CapsuleCollider enemyCapsuleCollider;
+    Rigidbody enemyRigidBody;
     
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        collider = GetComponent<CapsuleCollider>();
-        rigidbody = GetComponent<Rigidbody>();
+        enemyCapsuleCollider = GetComponent<CapsuleCollider>();
+        enemyRigidBody = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -49,10 +49,10 @@ public class EnemyStats : MonoBehaviour
             currentHealth = 0;
             isDead = true;
             animator.Play("Death");
-            collider.direction = 2;
-            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
-            collider.radius = 0.1f;
+            enemyCapsuleCollider.direction = 2;
+            enemyRigidBody.constraints = RigidbodyConstraints.FreezeAll;
+            enemyRigidBody.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            enemyCapsuleCollider.radius = 0.1f;
         }
     }
 }

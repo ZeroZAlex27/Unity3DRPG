@@ -1,2 +1,0 @@
-D:\UnityGameDev\UnityProjects\My3dRpgAnimatedController\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-D:\UnityGameDev\UnityProjects\My3dRpgAnimatedController\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
