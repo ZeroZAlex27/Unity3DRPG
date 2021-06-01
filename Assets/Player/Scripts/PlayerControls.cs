@@ -75,9 +75,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Double Attack"",
+                    ""name"": ""Two-Handing"",
                     ""type"": ""Button"",
-                    ""id"": ""0386e91e-024f-4687-bf41-1c3add7a2423"",
+                    ""id"": ""db4049e4-798d-4701-b8e4-1696ccc8e88e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -131,9 +131,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Two-Handing"",
+                    ""name"": ""Character Equipment"",
                     ""type"": ""Button"",
-                    ""id"": ""db4049e4-798d-4701-b8e4-1696ccc8e88e"",
+                    ""id"": ""eb08aaa8-5418-4294-9ff8-5fb0049fa9a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Use Item"",
+                    ""type"": ""Button"",
+                    ""id"": ""44379d95-9fb8-464e-9c17-6740fb403ea0"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -262,72 +270,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""LMB+RMB"",
-                    ""id"": ""20e08341-1006-4361-8cdf-db1089886669"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Double Attack"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""5b8d7ff2-5752-41e9-b809-6c9fb6156d79"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Double Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""89c18e0a-55e8-47b3-ae27-ff1a66465820"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Double Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""RMB+LMB"",
-                    ""id"": ""ec7a7a5a-68d7-4a03-b9bf-13ba542a7d71"",
-                    ""path"": ""ButtonWithOneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Double Attack"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""37d87024-8fce-48a3-a19f-30b91f9409f8"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Double Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""button"",
-                    ""id"": ""7931486b-091d-4067-bb3e-2ee7efa074cb"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Double Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""c1733233-f45f-4d8e-83f6-c6ccea58cd8a"",
                     ""path"": ""<Keyboard>/upArrow"",
@@ -395,12 +337,34 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""2c96db34-136a-4ee7-93ac-fe7e39229693"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Character Equipment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""6432c8db-550c-42f7-81a2-deaeb5cdf3de"",
                     ""path"": ""<Keyboard>/leftAlt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Two-Handing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""512395dd-bca5-4535-8c6d-743acac50be8"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use Item"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -418,14 +382,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Player_Camera = m_Player.FindAction("Camera", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_HeavyAttack = m_Player.FindAction("Heavy Attack", throwIfNotFound: true);
-        m_Player_DoubleAttack = m_Player.FindAction("Double Attack", throwIfNotFound: true);
+        m_Player_TwoHanding = m_Player.FindAction("Two-Handing", throwIfNotFound: true);
         m_Player_WeaponsQuickSlotsUp = m_Player.FindAction("Weapons Quick Slots: Up", throwIfNotFound: true);
         m_Player_WeaponsQuickSlotsDown = m_Player.FindAction("Weapons Quick Slots: Down", throwIfNotFound: true);
         m_Player_WeaponsQuickSlotsLeft = m_Player.FindAction("Weapons Quick Slots: Left", throwIfNotFound: true);
         m_Player_WeaponsQuickSlotsRight = m_Player.FindAction("Weapons Quick Slots: Right", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
-        m_Player_TwoHanding = m_Player.FindAction("Two-Handing", throwIfNotFound: true);
+        m_Player_CharacterEquipment = m_Player.FindAction("Character Equipment", throwIfNotFound: true);
+        m_Player_UseItem = m_Player.FindAction("Use Item", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -482,14 +447,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Camera;
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_HeavyAttack;
-    private readonly InputAction m_Player_DoubleAttack;
+    private readonly InputAction m_Player_TwoHanding;
     private readonly InputAction m_Player_WeaponsQuickSlotsUp;
     private readonly InputAction m_Player_WeaponsQuickSlotsDown;
     private readonly InputAction m_Player_WeaponsQuickSlotsLeft;
     private readonly InputAction m_Player_WeaponsQuickSlotsRight;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Inventory;
-    private readonly InputAction m_Player_TwoHanding;
+    private readonly InputAction m_Player_CharacterEquipment;
+    private readonly InputAction m_Player_UseItem;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -501,14 +467,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Camera => m_Wrapper.m_Player_Camera;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
-        public InputAction @DoubleAttack => m_Wrapper.m_Player_DoubleAttack;
+        public InputAction @TwoHanding => m_Wrapper.m_Player_TwoHanding;
         public InputAction @WeaponsQuickSlotsUp => m_Wrapper.m_Player_WeaponsQuickSlotsUp;
         public InputAction @WeaponsQuickSlotsDown => m_Wrapper.m_Player_WeaponsQuickSlotsDown;
         public InputAction @WeaponsQuickSlotsLeft => m_Wrapper.m_Player_WeaponsQuickSlotsLeft;
         public InputAction @WeaponsQuickSlotsRight => m_Wrapper.m_Player_WeaponsQuickSlotsRight;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
-        public InputAction @TwoHanding => m_Wrapper.m_Player_TwoHanding;
+        public InputAction @CharacterEquipment => m_Wrapper.m_Player_CharacterEquipment;
+        public InputAction @UseItem => m_Wrapper.m_Player_UseItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -539,9 +506,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @HeavyAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
-                @DoubleAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleAttack;
-                @DoubleAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleAttack;
-                @DoubleAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDoubleAttack;
+                @TwoHanding.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTwoHanding;
+                @TwoHanding.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTwoHanding;
+                @TwoHanding.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTwoHanding;
                 @WeaponsQuickSlotsUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponsQuickSlotsUp;
                 @WeaponsQuickSlotsUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponsQuickSlotsUp;
                 @WeaponsQuickSlotsUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWeaponsQuickSlotsUp;
@@ -560,9 +527,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
-                @TwoHanding.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTwoHanding;
-                @TwoHanding.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTwoHanding;
-                @TwoHanding.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTwoHanding;
+                @CharacterEquipment.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCharacterEquipment;
+                @CharacterEquipment.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCharacterEquipment;
+                @CharacterEquipment.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCharacterEquipment;
+                @UseItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
+                @UseItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
+                @UseItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -588,9 +558,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @HeavyAttack.started += instance.OnHeavyAttack;
                 @HeavyAttack.performed += instance.OnHeavyAttack;
                 @HeavyAttack.canceled += instance.OnHeavyAttack;
-                @DoubleAttack.started += instance.OnDoubleAttack;
-                @DoubleAttack.performed += instance.OnDoubleAttack;
-                @DoubleAttack.canceled += instance.OnDoubleAttack;
+                @TwoHanding.started += instance.OnTwoHanding;
+                @TwoHanding.performed += instance.OnTwoHanding;
+                @TwoHanding.canceled += instance.OnTwoHanding;
                 @WeaponsQuickSlotsUp.started += instance.OnWeaponsQuickSlotsUp;
                 @WeaponsQuickSlotsUp.performed += instance.OnWeaponsQuickSlotsUp;
                 @WeaponsQuickSlotsUp.canceled += instance.OnWeaponsQuickSlotsUp;
@@ -609,9 +579,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
-                @TwoHanding.started += instance.OnTwoHanding;
-                @TwoHanding.performed += instance.OnTwoHanding;
-                @TwoHanding.canceled += instance.OnTwoHanding;
+                @CharacterEquipment.started += instance.OnCharacterEquipment;
+                @CharacterEquipment.performed += instance.OnCharacterEquipment;
+                @CharacterEquipment.canceled += instance.OnCharacterEquipment;
+                @UseItem.started += instance.OnUseItem;
+                @UseItem.performed += instance.OnUseItem;
+                @UseItem.canceled += instance.OnUseItem;
             }
         }
     }
@@ -625,13 +598,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnCamera(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
-        void OnDoubleAttack(InputAction.CallbackContext context);
+        void OnTwoHanding(InputAction.CallbackContext context);
         void OnWeaponsQuickSlotsUp(InputAction.CallbackContext context);
         void OnWeaponsQuickSlotsDown(InputAction.CallbackContext context);
         void OnWeaponsQuickSlotsLeft(InputAction.CallbackContext context);
         void OnWeaponsQuickSlotsRight(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
-        void OnTwoHanding(InputAction.CallbackContext context);
+        void OnCharacterEquipment(InputAction.CallbackContext context);
+        void OnUseItem(InputAction.CallbackContext context);
     }
 }

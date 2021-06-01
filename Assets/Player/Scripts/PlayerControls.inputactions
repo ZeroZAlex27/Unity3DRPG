@@ -62,9 +62,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Double Attack",
+                    "name": "Two-Handing",
                     "type": "Button",
-                    "id": "0386e91e-024f-4687-bf41-1c3add7a2423",
+                    "id": "db4049e4-798d-4701-b8e4-1696ccc8e88e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -118,9 +118,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Two-Handing",
+                    "name": "Character Equipment",
                     "type": "Button",
-                    "id": "db4049e4-798d-4701-b8e4-1696ccc8e88e",
+                    "id": "eb08aaa8-5418-4294-9ff8-5fb0049fa9a8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Use Item",
+                    "type": "Button",
+                    "id": "44379d95-9fb8-464e-9c17-6740fb403ea0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -249,72 +257,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "LMB+RMB",
-                    "id": "20e08341-1006-4361-8cdf-db1089886669",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Double Attack",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "5b8d7ff2-5752-41e9-b809-6c9fb6156d79",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Double Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "89c18e0a-55e8-47b3-ae27-ff1a66465820",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Double Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "RMB+LMB",
-                    "id": "ec7a7a5a-68d7-4a03-b9bf-13ba542a7d71",
-                    "path": "ButtonWithOneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Double Attack",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "37d87024-8fce-48a3-a19f-30b91f9409f8",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Double Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "button",
-                    "id": "7931486b-091d-4067-bb3e-2ee7efa074cb",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Double Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "c1733233-f45f-4d8e-83f6-c6ccea58cd8a",
                     "path": "<Keyboard>/upArrow",
@@ -382,12 +324,34 @@
                 },
                 {
                     "name": "",
+                    "id": "2c96db34-136a-4ee7-93ac-fe7e39229693",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Character Equipment",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6432c8db-550c-42f7-81a2-deaeb5cdf3de",
                     "path": "<Keyboard>/leftAlt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Two-Handing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "512395dd-bca5-4535-8c6d-743acac50be8",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -59,4 +59,19 @@ public class PlayerStats : MonoBehaviour
             playerCapsuleCollider.radius = 0.1f;
         }
     }
+
+    public void HealPlayer(int healAmount)
+    {
+        if (playerLocomotion.isDead)
+            return;
+
+        currentHealth += healAmount;
+
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        healthBar.SetCurrentHealth(currentHealth);
+    }
 }

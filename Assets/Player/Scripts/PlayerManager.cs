@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool isInteracting;
 
+    public float timeUntilBarIsHidden = 0;
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -28,6 +30,14 @@ public class PlayerManager : MonoBehaviour
     {
         inputManager.HandleAllInputs();
         CheckForInteractableObject();
+
+        timeUntilBarIsHidden -= Time.deltaTime;
+
+        if (timeUntilBarIsHidden <= 0)
+        {
+            timeUntilBarIsHidden = 0;
+            itemInteractableGameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()

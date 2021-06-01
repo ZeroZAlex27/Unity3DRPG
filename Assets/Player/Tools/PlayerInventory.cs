@@ -6,9 +6,11 @@ public class PlayerInventory : MonoBehaviour
 {
     WeaponSlotManager weaponSlotManager;
     AnimatorManager animatorManager;
+    InputManager inputManager;
 
     public WeaponItem rightWeapon;
     public WeaponItem leftWeapon;
+    public ConsumableItem currentConsumableItem;
 
     public WeaponItem unarmedWeapon;
 
@@ -24,6 +26,7 @@ public class PlayerInventory : MonoBehaviour
     {
         weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         animatorManager = GetComponent<AnimatorManager>();
+        inputManager = GetComponent<InputManager>();
     }
 
     private void Start()
@@ -32,6 +35,7 @@ public class PlayerInventory : MonoBehaviour
         leftWeapon = weaponsInLeftHandSlots[0];
         weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
         weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+        inputManager.twoHandFlag = false;
     }
 
     public void ChangeRightWeapon()

@@ -31,5 +31,6 @@ public class WeaponPickUp : Interactable
         playerManager.itemInteractableGameObject.GetComponentInChildren<RawImage>().texture = weapon.itemIcon.texture;
         playerManager.itemInteractableGameObject.SetActive(true);
         Destroy(gameObject);
+        playerManager.timeUntilBarIsHidden = 3;
     }
 }

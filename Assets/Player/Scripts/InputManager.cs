@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     PlayerAttacker playerAttacker;
     PlayerInventory playerInventory;
     WeaponSlotManager weaponSlotManager;
+    PlayerEffectsManager playerEffectsManager;
     UIManager uiManager;
 
     public Vector2 movementInput;
@@ -25,9 +26,14 @@ public class InputManager : MonoBehaviour
     public bool wqs_right;
 
     public bool interactableInput;
+    public bool useItemInput;
     public bool inventoryInput;
+    public bool equipmentInput;
 
+    public bool cursorFlag;
+    public bool interactingFlag;
     public bool inventroyFlag;
+    public bool equipmentFlag;
     public bool twoHandFlag;
 
     public float moveAmount;
@@ -42,7 +48,6 @@ public class InputManager : MonoBehaviour
 
     public bool lightAttackInput;
     public bool heavyAttackInput;
-    public bool doubleAttackInput;
 
     private void Awake()
     {
@@ -52,6 +57,7 @@ public class InputManager : MonoBehaviour
         playerAttacker = GetComponent<PlayerAttacker>();
         playerInventory = GetComponent<PlayerInventory>();
         weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+        playerEffectsManager = GetComponentInChildren<PlayerEffectsManager>();
         uiManager = FindObjectOfType<UIManager>();
     }
 
@@ -71,7 +77,6 @@ public class InputManager : MonoBehaviour
 
             playerControls.Player.LightAttack.performed += i => lightAttackInput = true;
             playerControls.Player.HeavyAttack.performed += i => heavyAttackInput = true;
-            playerControls.Player.DoubleAttack.performed += i => doubleAttackInput = true;
 
             playerControls.Player.WeaponsQuickSlotsUp.performed += i => wqs_up = true;
             playerControls.Player.WeaponsQuickSlotsDown.performed += i => wqs_down = true;
@@ -79,7 +84,9 @@ public class InputManager : MonoBehaviour
             playerControls.Player.WeaponsQuickSlotsRight.performed += i => wqs_right = true;
 
             playerControls.Player.Interact.performed += i => interactableInput = true;
+            playerControls.Player.UseItem.performed += i => useItemInput = true;
             playerControls.Player.Inventory.performed += i => inventoryInput = true;
+            playerControls.Player.CharacterEquipment.performed += i => equipmentInput = true;
             playerControls.Player.TwoHanding.performed += i => twoHandInput = true;
         }
 
@@ -93,6 +100,7 @@ public class InputManager : MonoBehaviour
 
     public void HandleAllInputs()
     {
+        HandleCursor();
         HandleMovementInput();
         HandleSprintingInput();
         HandleJumpingInput();
@@ -100,7 +108,9 @@ public class InputManager : MonoBehaviour
         HandleAttackInput();
         HandleQuickSlotInput();
         HandleInteractingInput();
+        HandleUseConsumableInput();
         HandleInventoryInput();
+        HandleEquipmentInput();
         HandleTwoHandInput();
     }
 
@@ -149,16 +159,7 @@ public class InputManager : MonoBehaviour
     {
         if (!playerManager.isInteracting)
         {
-            playerAttacker.lastAttack = null;
-        }
-
-        if(doubleAttackInput)
-        {
-            doubleAttackInput = false;
-            if ((playerManager.isInteracting && playerAttacker.lastAttack == playerInventory.rightWeapon.OH_Double_Light_Attack_1) 
-                || playerLocomotion.canDoCombo)
-                return;
-            playerAttacker.HandleDoubleAttack(playerInventory.rightWeapon);
+            playerAttacker.lastAttack = "Empty";
         }
 
         if (lightAttackInput)
@@ -216,6 +217,9 @@ public class InputManager : MonoBehaviour
 
     private void HandleQuickSlotInput()
     {
+        if (playerManager.isInteracting || !playerLocomotion.isGrounded)
+            return;
+
         if (wqs_right)
         {
             wqs_right = false;
@@ -242,15 +246,31 @@ public class InputManager : MonoBehaviour
 
             if (inventroyFlag)
             {
-                uiManager.OpenSelectWindow();
+                uiManager.OpenInventoryWindow();
                 uiManager.UpdateUI();
-                uiManager.hudWindow.SetActive(false);
             }
             else
             {
-                uiManager.CloseSelectWindow();
-                uiManager.CloseAllInventoryWindows();
-                uiManager.hudWindow.SetActive(true);
+                uiManager.CloseInventoryWindow();
+            }
+        }
+    }
+
+    public void HandleEquipmentInput()
+    {
+        if (equipmentInput)
+        {
+            equipmentInput = false;
+            equipmentFlag = !equipmentFlag;
+
+            if (equipmentFlag)
+            {
+                uiManager.OpenCharacterEquipmentWindow();
+                uiManager.UpdateUI();
+            }
+            else
+            {
+                uiManager.CloseCharacterEquipmentWindow();
             }
         }
     }
@@ -260,6 +280,10 @@ public class InputManager : MonoBehaviour
         if (twoHandInput)
         {
             twoHandInput = false;
+
+            if (playerInventory.rightWeapon == playerInventory.unarmedWeapon)
+                return;
+
             twoHandFlag = !twoHandFlag;
 
             if (twoHandFlag)
@@ -271,6 +295,27 @@ public class InputManager : MonoBehaviour
                 weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
                 weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
             }
+        }
+    }
+
+    public void HandleCursor()
+    {
+        if (inventroyFlag || equipmentFlag)
+        {
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+        }
+    }
+
+    private void HandleUseConsumableInput()
+    {
+        if (useItemInput)
+        {
+            useItemInput = false;
+            playerInventory.currentConsumableItem.AttemptToConsumeItem(animatorManager, weaponSlotManager, playerEffectsManager);
         }
     }
 }

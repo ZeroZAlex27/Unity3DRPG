@@ -10,6 +10,8 @@ public class EnemyStats : MonoBehaviour
 
     bool isDead;
 
+    public UIEnemyHealthBar enemyHealthBar;
+
     Animator animator;
     CapsuleCollider enemyCapsuleCollider;
     Rigidbody enemyRigidBody;
@@ -27,6 +29,7 @@ public class EnemyStats : MonoBehaviour
         isDead = false;
         maxHealth = SetMaxHealthFromHealthLevel();
         currentHealth = maxHealth;
+        enemyHealthBar.SetMaxHealth(maxHealth);
     }
 
     public int SetMaxHealthFromHealthLevel()
@@ -41,6 +44,8 @@ public class EnemyStats : MonoBehaviour
             return;
 
         currentHealth -= damage;
+
+        enemyHealthBar.SetHealth(currentHealth);
 
         animator.Play("Take Damage");
 

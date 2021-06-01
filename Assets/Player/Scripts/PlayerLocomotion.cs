@@ -35,7 +35,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingTSpeed = 3;
     public float walkingSpeed = 3;
     public float runningSpeed = 7;
-    public float rotationSpeed = 10;
+    public float rotationSpeed = 5;
     public float rollSpeed = 5;
 
     [Header("Jump Speeds")]
@@ -55,14 +55,14 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleAllMovement()
     {
+        HandleInteracting();
         HandleFallingAndLanding();
         InteractionRotation();
-
+        HandleImpulse();
         if (playerManager.isInteracting)
             return;
         HandleMovement();
         HandleRotation();
-        HandleImpulse();
     }
 
     private void HandleMovement()
@@ -163,6 +163,10 @@ public class PlayerLocomotion : MonoBehaviour
     {
         if (!isRolling)
         {
+            if (startRolling)
+            {
+                myTransform.rotation = Quaternion.Euler(0, myTransform.eulerAngles.y, myTransform.eulerAngles.z);
+            }
             startRolling = false;
             return;
         }
@@ -240,11 +244,25 @@ public class PlayerLocomotion : MonoBehaviour
                 if(inputManager.horizontalInput != 0 || inputManager.verticalInput != 0)
                 {
                     animatorManager.animator.SetBool("isRolling", true);
-                    animatorManager.PlayTargetAnimation("Rolling", false);
+                    animatorManager.PlayTargetAnimation("Rolling", true);
 
+                    moveDirection = cameraObject.forward * inputManager.verticalInput;
+                    moveDirection += cameraObject.right * inputManager.horizontalInput;
                     Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                     transform.rotation = rollRotation;
                 }
+        }
+    }
+
+    public void HandleInteracting()
+    {
+        if (isJumping || isRolling || !isGrounded || inputManager.inventroyFlag || inputManager.equipmentFlag)
+        {
+            inputManager.interactingFlag = true;
+        }
+        else
+        {
+            inputManager.interactingFlag = false;
         }
     }
 }

@@ -20,30 +20,37 @@ public class PlayerAttacker : MonoBehaviour
 
     public void HandleWeaponCombo(WeaponItem weapon)
     {
-        if (playerLocomotion.isDead || inputManager.inventroyFlag)
+        if (playerLocomotion.isDead || inputManager.interactingFlag)
             return;
         if (inputManager.comboInput)
         {
             animatorManager.animator.SetBool("canDoCombo", false);
 
-            if(lastAttack.Contains("_Light_Attack_") || lastAttack.Contains("_Heavy_Attack_"))
+            string attackType1 = lastAttack.Substring(0, 2);
+            string attackType2;
+            if (lastAttack.Contains("_Light_Attack_"))
             {
-                string attackType = lastAttack.Substring(0, lastAttack.Length - 1);
-                string indexOfAttack = lastAttack.Substring(lastAttack.Length - 1);
-                string nextAttack = attackType + (int.Parse(indexOfAttack) + 1);
-                Type typeWeaponItem = typeof(WeaponItem);
-                if (typeWeaponItem.GetTypeInfo().GetDeclaredField(nextAttack) != null)
-                {
-                    animatorManager.PlayTargetAnimation(nextAttack, true);
-                    lastAttack = nextAttack;
-                }
+                attackType2 = "_Light_Attack_";
+            }
+            else
+            {
+                attackType2 = "_Heavy_Attack_";
+            }
+            string indexOfAttack = lastAttack.Substring(lastAttack.Length - 1);
+            string nextAttackVar = attackType1 + attackType2 + (int.Parse(indexOfAttack) + 1);
+            Type typeWeaponItem = typeof(WeaponItem);
+            if (typeWeaponItem.GetTypeInfo().GetDeclaredField(nextAttackVar) != null)
+            {
+                string nextAttack = lastAttack.Substring(0, lastAttack.Length - 1) + (int.Parse(indexOfAttack) + 1);
+                animatorManager.PlayTargetAnimation(nextAttack, true);
+                lastAttack = nextAttack;
             }
         }
     }
 
     public void HandleLightAttack(WeaponItem weapon)
     {
-        if (playerLocomotion.isDead || inputManager.inventroyFlag)
+        if (playerLocomotion.isDead || inputManager.interactingFlag)
             return;
         if (inputManager.twoHandFlag)
         {
@@ -60,7 +67,7 @@ public class PlayerAttacker : MonoBehaviour
 
     public void HandleHeavyAttack(WeaponItem weapon)
     {
-        if (playerLocomotion.isDead || inputManager.inventroyFlag)
+        if (playerLocomotion.isDead || inputManager.interactingFlag)
             return;
         if (inputManager.twoHandFlag)
         {
@@ -72,13 +79,5 @@ public class PlayerAttacker : MonoBehaviour
             animatorManager.PlayTargetAnimation(weapon.OH_Heavy_Attack_1, true);
             lastAttack = weapon.OH_Heavy_Attack_1;
         }
-    }
-
-    public void HandleDoubleAttack(WeaponItem weapon)
-    {
-        if (playerLocomotion.isDead || inputManager.inventroyFlag)
-            return;
-        animatorManager.PlayTargetAnimation(weapon.OH_Double_Light_Attack_1, true);
-        lastAttack = weapon.OH_Double_Light_Attack_1;
     }
 }

@@ -19,19 +19,19 @@ MonoBehaviour:
   Right_Hand_Idle: Right Arm Empty
   Left_Hand_Idle: Left Arm Empty
   th_idle: Two_Handed_Idle
-  OH_Light_Attack_1: OH_Light_Attack_1
-  OH_Light_Attack_2: OH_Light_Attack_2
-  OH_Light_Attack_3: OH_Light_Attack_3
-  OH_Light_Attack_4: OH_Light_Attack_4
-  OH_Heavy_Attack_1: OH_Heavy_Attack_1
-  OH_Heavy_Attack_2: OH_Heavy_Attack_2
-  OH_Heavy_Attack_3: OH_Heavy_Attack_3
-  OH_Heavy_Attack_4: OH_Heavy_Attack_4
-  OH_Double_Light_Attack_1: OH_Double_Light_Attack_1
-  OH_Double_Light_Attack_2: OH_Double_Light_Attack_2
-  TH_Light_Attack_1: TH_Light_Attack_1
-  TH_Light_Attack_2: TH_Light_Attack_2
-  TH_Light_Attack_3: TH_Light_Attack_3
-  TH_Heavy_Attack_1: TH_Heavy_Attack_1
-  TH_Heavy_Attack_2: TH_Heavy_Attack_2
-  TH_Heavy_Attack_3: TH_Heavy_Attack_3
+  OH_Light_Attack_1: OH_Unarmed_Light_Attack_1
+  OH_Light_Attack_2: OH_Unarmed_Light_Attack_2
+  OH_Light_Attack_3: OH_Unarmed_Light_Attack_3
+  OH_Light_Attack_4: 
+  OH_Heavy_Attack_1: OH_Unarmed_Heavy_Attack_1
+  OH_Heavy_Attack_2: OH_Unarmed_Heavy_Attack_2
+  OH_Heavy_Attack_3: OH_Unarmed_Heavy_Attack_3
+  OH_Heavy_Attack_4: 
+  OH_Double_Light_Attack_1: 
+  OH_Double_Light_Attack_2: 
+  TH_Light_Attack_1: 
+  TH_Light_Attack_2: 
+  TH_Light_Attack_3: 
+  TH_Heavy_Attack_1: 
+  TH_Heavy_Attack_2: 
+  TH_Heavy_Attack_3: 

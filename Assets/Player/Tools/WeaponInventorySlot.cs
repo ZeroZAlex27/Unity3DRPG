@@ -66,14 +66,20 @@ public class WeaponInventorySlot : MonoBehaviour
             return;
         }
 
-        playerInventory.rightWeapon = playerInventory.weaponsInRightHandSlots[playerInventory.currentRightWeaponIndex];
-        playerInventory.leftWeapon = playerInventory.weaponsInLeftHandSlots[playerInventory.currentLeftWeaponIndex];
-
-        weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
-        weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+        if (playerInventory.currentRightWeaponIndex != -1)
+        {
+            playerInventory.rightWeapon = playerInventory.weaponsInRightHandSlots[playerInventory.currentRightWeaponIndex];
+            weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
+        }
+        if (playerInventory.currentLeftWeaponIndex != -1)
+        {
+            playerInventory.leftWeapon = playerInventory.weaponsInLeftHandSlots[playerInventory.currentLeftWeaponIndex];
+            weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
+        }
 
         uiManager.equipmentWindowUI.LoadWeaponsOnEquipmentScreen(playerInventory);
         uiManager.ResetAllSelectedSlots();
         uiManager.UpdateUI();
+        uiManager.OpenCharacterEquipmentWindow();
     }
 }
